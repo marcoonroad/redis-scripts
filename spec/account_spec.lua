@@ -1,6 +1,6 @@
 require 'busted.runner' ( )
 
-describe ("account redis script -", function ( )
+describe ("bank account redis script -", function ( )
         local script
         local cuid
         local redis

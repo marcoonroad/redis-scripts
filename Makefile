@@ -3,7 +3,7 @@ all: test
 deps:
 	luarocks install cuid
 	luarocks install redis-lua
-	luarocks install lua-cjson
+	luarocks install lunajson
 	luarocks install busted
 	luarocks install luacheck
 

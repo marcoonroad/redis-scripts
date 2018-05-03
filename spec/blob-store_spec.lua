@@ -3,7 +3,7 @@ require 'busted.runner' ( )
 describe ("content-addressable append-only store script -", function ( )
         local script
         local cuid
-        local cjson
+        local lunajson
         local redis
         local client
         local alive
@@ -15,9 +15,9 @@ describe ("content-addressable append-only store script -", function ( )
                         script = (script and script .. "\n" or "") ..line
                 end
 
-                cuid  = require 'cuid'
-                cjson = require 'cjson'
-                redis = require 'redis'
+                cuid     = require 'cuid'
+                lunajson = require 'lunajson'
+                redis    = require 'redis'
 
                 client = redis.connect ('127.0.0.1', 6379)
 
@@ -55,14 +55,14 @@ describe ("content-addressable append-only store script -", function ( )
                 }
 
                 local id = client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', cjson.encode (hero)
+                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode (hero)
                 )
 
                 local result = client: evalsha (
                         hash, 1, stores[ 1 ], 'ACCESS', id
                 )
 
-                assert.same (hero, cjson.decode (result))
+                assert.same (hero, lunajson.decode (result))
         end)
 
         it ("should be idempotent and independent of any order", function ( )
@@ -75,15 +75,17 @@ describe ("content-addressable append-only store script -", function ( )
                 }
 
                 local id = client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', cjson.encode (weapon)
+                        hash, 1, stores[ 1 ], 'APPEND',
+                        lunajson.encode (weapon)
                 )
 
                 assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', cjson.encode (weapon)
+                        hash, 1, stores[ 1 ], 'APPEND',
+                        lunajson.encode (weapon)
                 ))
 
                 assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', cjson.encode ({
+                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
                                 critical = 0.75,
                                 power    = 500,
                                 name     = "Excalibur",
@@ -91,7 +93,7 @@ describe ("content-addressable append-only store script -", function ( )
                 ))
 
                 assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', cjson.encode ({
+                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
                                 critical = 0.75,
                                 name     = "Excalibur",
                                 power    = 500,
@@ -99,7 +101,7 @@ describe ("content-addressable append-only store script -", function ( )
                 ))
 
                 assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', cjson.encode ({
+                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
                                 name     = "Excalibur",
                                 critical = 0.75,
                                 power    = 500,
@@ -107,7 +109,7 @@ describe ("content-addressable append-only store script -", function ( )
                 ))
 
                 assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', cjson.encode ({
+                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
                                 power    = 500,
                                 name     = "Excalibur",
                                 critical = 0.75,

@@ -3,7 +3,7 @@ require 'busted.runner' ( )
 describe ("promise redis script -", function ( )
         local script
         local cuid
-        local cjson
+        local lunajson
         local redis
         local publisher
         local subscriber
@@ -17,9 +17,9 @@ describe ("promise redis script -", function ( )
                         script = (script and script .. "\n" or "") ..line
                 end
 
-                cuid  = require 'cuid'
-                cjson = require 'cjson'
-                redis = require 'redis'
+                cuid     = require 'cuid'
+                lunajson = require 'lunajson'
+                redis    = require 'redis'
 
                 publisher = redis.connect ('127.0.0.1', 6379)
 
@@ -113,7 +113,7 @@ describe ("promise redis script -", function ( )
 
                 assert.same (response[ 1 ], 'message')
                 assert.same (response[ 2 ], futures[ 1 ])
-                assert.same (cjson.decode (response[ 3 ]), message)
+                assert.same (lunajson.decode (response[ 3 ]), message)
 
                 subscriber: unsubscribe (futures[ 1 ])
         end)
@@ -163,7 +163,7 @@ describe ("promise redis script -", function ( )
 
                 assert.same (response[ 1 ], 'message')
                 assert.same (response[ 2 ], futures[ 1 ])
-                assert.same (cjson.decode (response[ 3 ]), message)
+                assert.same (lunajson.decode (response[ 3 ]), message)
 
                 subscriber: unsubscribe (futures[ 1 ])
         end)
