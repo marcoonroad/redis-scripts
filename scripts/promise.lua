@@ -8,6 +8,10 @@
 --    EVALSHA <hash> 1 <key>           REJECT  <value> ==> 1
 --    EVALSHA <hash> 1 <key>           RESULT          ==> value
 --
+-- See more:
+--
+--    https://en.wikipedia.org/wiki/Futures_and_promises
+--
 --------------------------------------------------------------------------------
 
 local function convert (value)

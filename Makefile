@@ -16,3 +16,4 @@ test: check
 load:
 	redis-cli SCRIPT LOAD "`cat ./scripts/account.lua`"
 	redis-cli SCRIPT LOAD "`cat ./scripts/promise.lua`"
+	redis-cli SCRIPT LOAD "`cat ./scripts/blob-store.lua`"
