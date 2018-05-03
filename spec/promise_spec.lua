@@ -102,7 +102,7 @@ describe ("promise redis script -", function ( )
                 until response[ 1 ] == 'message' or retries < 0
 
                 if retries < 0 then
-                        assert.fail ("Could not read published message!")
+                        error ("Could not read published message!")
                 end
 
                 local message = {
@@ -152,7 +152,7 @@ describe ("promise redis script -", function ( )
                 until response[ 1 ] == 'message' or retries < 0
 
                 if retries < 0 then
-                        assert.fail ("Could not read published message!")
+                        error ("Could not read published message!")
                 end
 
                 local message = {
