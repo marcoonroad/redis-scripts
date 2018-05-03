@@ -1,14 +1,14 @@
 all: test
 
 deps:
-	luarocks --local install cuid
-	luarocks --local install redis-lua
-	luarocks --local install lua-cjson
-	luarocks --local install busted
-	luarocks --local install luacheck
+	luarocks install cuid
+	luarocks install redis-lua
+	luarocks install lua-cjson
+	luarocks install busted
+	luarocks install luacheck
 
 check:
-	luacheck --std max+busted scripts spec
+	luacheck scripts spec
 
 test: check
 	busted --verbose spec

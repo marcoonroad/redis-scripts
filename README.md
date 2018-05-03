@@ -2,6 +2,8 @@
 
 My own personal list of custom Lua <=> Redis scripts.
 
+[![Build Status](https://travis-ci.org/marcoonroad/redis-scripts.svg?branch=master)](https://travis-ci.org/marcoonroad/redis-scripts)
+
 Such scripts are pure in some sense. They don't rely on non-deterministic stuff
 such as commands like **TIME**, **RANDOMKEY**, and so on. Also, they're fully
 parametrized on the Redis keys, that is, they don't assume anything implicitly
