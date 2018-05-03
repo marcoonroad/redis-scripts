@@ -79,42 +79,57 @@ describe ("content-addressable append-only store script -", function ( )
                         lunajson.encode (weapon)
                 )
 
-                assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND',
-                        lunajson.encode (weapon)
-                ))
+                for _ = 1, 50 do
+                        assert.same (id, client: evalsha (
+                                hash, 1, stores[ 1 ], 'APPEND',
+                                lunajson.encode (weapon)
+                        ))
 
-                assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
-                                critical = 0.75,
-                                power    = 500,
-                                name     = "Excalibur",
-                        })
-                ))
+                        assert.same (id, client: evalsha (
+                                hash, 1, stores[ 1 ], 'APPEND',
+                                lunajson.encode ({
+                                        critical = 0.75,
+                                        power    = 500,
+                                        name     = "Excalibur",
+                                })
+                        ))
 
-                assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
-                                critical = 0.75,
-                                name     = "Excalibur",
-                                power    = 500,
-                        })
-                ))
+                        assert.same (id, client: evalsha (
+                                hash, 1, stores[ 1 ], 'APPEND',
+                                lunajson.encode ({
+                                        power    = 500,
+                                        critical = 0.75,
+                                        name     = "Excalibur",
+                                })
+                        ))
 
-                assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
-                                name     = "Excalibur",
-                                critical = 0.75,
-                                power    = 500,
-                        })
-                ))
+                        assert.same (id, client: evalsha (
+                                hash, 1, stores[ 1 ], 'APPEND',
+                                lunajson.encode ({
+                                        critical = 0.75,
+                                        name     = "Excalibur",
+                                        power    = 500,
+                                })
+                        ))
 
-                assert.same (id, client: evalsha (
-                        hash, 1, stores[ 1 ], 'APPEND', lunajson.encode ({
-                                power    = 500,
-                                name     = "Excalibur",
-                                critical = 0.75,
-                        })
-                ))
+                        assert.same (id, client: evalsha (
+                                hash, 1, stores[ 1 ], 'APPEND',
+                                lunajson.encode ({
+                                        name     = "Excalibur",
+                                        critical = 0.75,
+                                        power    = 500,
+                                })
+                        ))
+
+                        assert.same (id, client: evalsha (
+                                hash, 1, stores[ 1 ], 'APPEND',
+                                lunajson.encode ({
+                                        power    = 500,
+                                        name     = "Excalibur",
+                                        critical = 0.75,
+                                })
+                        ))
+                end
         end)
 
         it ("should fail on unknown store commands", function ( )
