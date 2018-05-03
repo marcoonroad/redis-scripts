@@ -2,15 +2,14 @@
 -- === Account Abstract Datatype ===
 --
 -- Usage:
---    EVALSHA <hash> 1 <key>     OPEN
---    EVALSHA <hash> 1 <key>  BALANCE
---    EVALSHA <hash> 1 <key>  DEPOSIT <amount>
---    EVALSHA <hash> 1 <key> WITHDRAW <amount>
---    EVALSHA <hash> 1 <key>   LOCKED
---    EVALSHA <hash> 1 <key>     LOCK <amount>
---    EVALSHA <hash> 1 <key>   UNLOCK <amount>
---
---    EVALSHA <hash> 2 <source> <target> TRANSFER <amount>
+--    EVALSHA <hash> 1 <key>                 OPEN           ==> 1
+--    EVALSHA <hash> 1 <key>              BALANCE           ==> number
+--    EVALSHA <hash> 1 <key>              DEPOSIT <amount>  ==> 1
+--    EVALSHA <hash> 1 <key>             WITHDRAW <amount>  ==> 1
+--    EVALSHA <hash> 1 <key>               LOCKED           ==> number
+--    EVALSHA <hash> 1 <key>                 LOCK <amount>  ==> 1
+--    EVALSHA <hash> 1 <key>               UNLOCK <amount>  ==> 1
+--    EVALSHA <hash> 2 <source> <target> TRANSFER <amount>  ==> 1
 --
 --------------------------------------------------------------------------------
 
@@ -115,13 +114,13 @@ elseif command == 'LOCK' then
         local account = KEYS[ 1 ]
         local amount  = positive (ARGV[ 2 ])
 
-        return LOCK (account, amount)
+        LOCK (account, amount)
 
 elseif command == 'UNLOCK' then
         local account = KEYS[ 1 ]
         local amount  = positive (ARGV[ 2 ])
 
-        return UNLOCK (account, amount)
+        UNLOCK (account, amount)
 
 elseif command == 'DEPOSIT' then
         local account = KEYS[ 1 ]

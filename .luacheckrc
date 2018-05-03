@@ -3,7 +3,7 @@ codes           = true
 cache           = true
 max_line_length = 80
 
-files[ "." ] = {
+files[ "scripts" ] = {
         std = "max",
         globals = {
                 "redis",
